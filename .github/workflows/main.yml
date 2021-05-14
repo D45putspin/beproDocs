@@ -20,23 +20,23 @@ jobs:
           path: bepro-src
           ref: master
 
+      - name: npm ci
+        run: npm ci
+
       - name: vue:build
         run: npm run build
-        env:
-          NODE_ENV: production
-          APP_PATH: /docs/
 
       - name: jsdoc:build
         uses: andstor/jsdoc-action@v1
         with:
           source_dir: ./bepro-src/src
+          output_dir: ./dist/static/docs.json
           recurse: true
-          config_file: jsdoc.json
           template: jsdoc-json
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./docs
+          publish_dir: ./dist
 
