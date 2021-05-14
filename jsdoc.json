@@ -1,0 +1,7 @@
+{
+  "opts": {
+    "encoding": "utf8",
+    "destination": "./docs/static/docs.json",
+    "recurse": true
+  }
+}

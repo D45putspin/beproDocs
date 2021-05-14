@@ -1,0 +1,42 @@
+name: Update documentation
+
+on:
+  repository_dispatch:
+    types: [update_docs]
+
+jobs:
+  update_doc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - name: Checkout bepro-js@master
+        uses: actions/checkout@v2
+        with:
+          repository: bepronetwork/bepro-js
+          path: bepro-src
+          ref: master
+
+      - name: vue:build
+        run: npm run build
+        env:
+          NODE_ENV: production
+          APP_PATH: /docs/
+
+      - name: jsdoc:build
+        uses: andstor/jsdoc-action@v1
+        with:
+          source_dir: ./bepro-src/src
+          recurse: true
+          config_file: jsdoc.json
+          template: jsdoc-json
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./docs
+
