@@ -1,12 +1,51 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
+
+<script lang="ts">
+import {Component, Vue} from 'vue-property-decorator';
+import {docsFind} from '@helpers/docs-find';
+import {JsonDoc, JsonDocKinds} from '@objects/faces/jsdocjson';
+
+@Component({}) export default class extends Vue {
+  loading = false;
+
+  async mounted(): Promise<void> {
+    this.loading = true;
+
+    const documentation =
+        await fetch(`./static/docs.json`).then(r => r.json());
+
+    const classes = docsFind(JsonDocKinds.class, documentation.docs, {scope: 'global'});
+
+    const sidebar: string[] = [];
+    const members: {[k: string]: {[k: string]: JsonDoc[]}} = {};
+
+    for (const doc of classes) {
+      sidebar.push(doc.name);
+
+      for (const member of docsFind(null, documentation.docs, {memberof: doc.name})) {
+        if (!members[doc.name])
+          members[doc.name] = {};
+
+        if (!members[doc.name][member.kind])
+          members[doc.name][member.kind] = [];
+
+        members[doc.name][member.kind].push(member);
+      }
+    }
+
+    console.log(`Left-nav`, sidebar);
+    console.log(`Classes`, classes);
+    console.log(`Members`, members);
+
+    this.loading = false;
+    return;
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
