@@ -7,7 +7,9 @@
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
 import {docsFind} from '@helpers/docs-find';
-import {JsonDoc, JsonDocKinds} from '@objects/faces/jsdocjson';
+import {JsonDocKinds} from '@objects/faces/jsdocjson';
+import {Members} from '@objects/faces/members';
+import {LeftNavItems$, Readme$, RightNavItems$} from '@objects/comms';
 
 @Component({}) export default class extends Vue {
   loading = false;
@@ -18,10 +20,12 @@ import {JsonDoc, JsonDocKinds} from '@objects/faces/jsdocjson';
     const documentation =
         await fetch(`./static/docs.json`).then(r => r.json());
 
+    Readme$.next(await fetch(`./static/readme.md`).then(r => r.text()));
+
     const classes = docsFind(JsonDocKinds.class, documentation.docs, {scope: 'global'});
 
     const sidebar: string[] = [];
-    const members: {[k: string]: {[k: string]: JsonDoc[]}} = {};
+    const members: Members = {};
 
     for (const doc of classes) {
       sidebar.push(doc.name);
@@ -37,9 +41,11 @@ import {JsonDoc, JsonDocKinds} from '@objects/faces/jsdocjson';
       }
     }
 
-    console.log(`Left-nav`, sidebar);
-    console.log(`Classes`, classes);
-    console.log(`Members`, members);
+    LeftNavItems$.next(sidebar);
+    RightNavItems$.next(members);
+
+    console.log(`leftnav`, sidebar);
+    console.log(`rightnav`, members);
 
     this.loading = false;
     return;
@@ -52,7 +58,7 @@ import {JsonDoc, JsonDocKinds} from '@objects/faces/jsdocjson';
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  //text-align: left;
   color: #2c3e50;
 }
 
