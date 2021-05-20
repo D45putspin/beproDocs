@@ -20,17 +20,12 @@ import {takeUntil} from 'rxjs/operators';
   },
 })
 export default class Home extends Vue {
-  destroyed$ = new Subject<boolean>();
   readmeContent = ``;
 
-  mounted() {
+  async mounted(): Promise<void> {
+    this.readmeContent = await fetch(`./static/readme.md`).then(r => r.text());
 
-    Readme$.pipe(takeUntil(this.destroyed$))
-           .subscribe(content => this.readmeContent = content)
-  }
-
-  destroyed() {
-    this.destroyed$.next(true);
+    return;
   }
 }
 </script>

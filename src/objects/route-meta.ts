@@ -1,47 +1,31 @@
-import {Route} from 'vue-router';
+import {NavigationGuard, Route} from 'vue-router';
 
-export class RouteMeta<MetaKey = string, MetaValue = any> {
+export class RouteMeta<MetaValue = any> {
+  constructor(protected metaValue: MetaValue) {}
 
-  constructor(protected metaKey: MetaKey, protected metaValue: MetaValue) {}
-  private route?: Route;
+  public metaKey = ``;
 
-  protected log(...rest: never[]): void {
-    console.warn(`(${this.metaKey})`, ...rest)
-  }
-
-  protected getAssociatedRoute(scopedRoute?: Route): Route {
-    const route = scopedRoute || this.route;
-    if (!route) throw new Error(`${this.metaKey} needs a route`)
-    return route;
-  }
-
-  protected metaWithKey<V = any>(route: Route, key: MetaKey = this.metaKey, getValue = false): MetaValue | V | null {
-    const meta = [...this.getAssociatedRoute(route).matched]
+  static metaWithKey<V = any>(route: Route, key: string, getValue = false): V | undefined {
+    const meta = [...route.matched]
       .reverse()
       .filter(({meta}) => !!meta)
       .find(_route => _route.meta?.hasOwnProperty(key))?.meta;
 
-    return meta && getValue ? meta[key] : meta || null;
+    return meta && getValue ? meta[key] || undefined : meta || undefined;
   }
 
-  protected getValue(): MetaValue|null {
-    return this.metaWithKey(this.getAssociatedRoute(), undefined, true);
+  static get beforeEach(): NavigationGuard {
+    return ((to, from, next) => next());
   }
 
-  onRoute(route: Route) {
-    this.route = route;
-    return this;
+  log(...rest: never[]): void {
+    console.warn(`(${this.metaKey})`, ...rest)
   }
 
   get meta() {
-    return ({
-      // @ts-ignore
+    return {
       [this.metaKey]: this.metaValue
-    })
+    };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  beforeEach(to: Route, from: Route, next: never): void {
-    return;
-  }
 }

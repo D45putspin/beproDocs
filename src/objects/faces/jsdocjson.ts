@@ -33,4 +33,7 @@ export interface JsonDoc {
   memberof: string;
   ___id: string;
   ___s: boolean;
+  description?: string;
+  returns?: any;
+  params?: any;
 }

@@ -1,0 +1,68 @@
+$directions: ('left': 'l', 'right': 'r', 'top': 't', 'bottom': 'b') !default;
+$dimensions: ('0': 0, '1': .25, '2': .5, '3': 1, '4': 2, '5': 3) !default;
+$spacers: ('p': 'padding', 'm': 'margin') !default;
+$positions: absolute, relative, sticky !default;
+
+// .m|p[t|r|l|b|x|y]-[0...5]
+@each $d, $prop in $spacers {
+  .#{$d} {
+    @each $dir, $values in (x: (right, left), y: (top, bottom)) {
+      &#{$dir} {
+        @each $amount, $multiplier in $dimensions {
+          &-#{$amount} {
+            @each $value in $values {
+              #{$prop}-#{$value}: #{$multiplier}rem!important;
+            }
+          }
+          &n-#{$amount} {
+            @each $value in $values {
+              #{$prop}-#{$value}: -#{$multiplier}rem!important;
+            }
+          }
+
+        }
+        &-auto {
+          @each $value in $values {
+            #{$prop}-#{$value}: auto!important;
+          }
+        }
+      }
+    }
+
+    @each $dir, $alias in $directions {
+      &#{$alias} {
+        @each $amount, $multiplier in $dimensions {
+          &-#{$amount} { #{$prop}-#{$dir}: #{$multiplier}rem!important; }
+          &n-#{$amount} { #{$prop}-#{$dir}: -#{$multiplier}rem!important; }
+          &-auto { #{$prop}-#{$dir}: auto!important; }
+        }
+      }
+    }
+
+    @each $amount, $multiplier in $dimensions {
+      &-#{$amount} {
+        #{$prop}: #{$multiplier}rem !important;
+      }
+      &n-#{$amount} {
+        #{$prop}: -#{$multiplier}rem !important;
+      }
+    }
+  }
+}
+
+// .position-[absolute|relative] .bottom|.left|.right|.top-[0...5]
+@each $position in $positions {
+  .position-#{$position} {
+    position: $position;
+    @each $direction, $alias in $directions {
+      &.#{$direction} {
+        @each $amount, $multiplier in $dimensions {
+          &-#{$amount} { #{$direction}: #{$multiplier}rem }
+          &n-#{$amount} { #{$direction}: -#{$multiplier}rem }
+        }
+        &-50p { #{$direction}: 50%; }
+        &-50np { #{$direction}: -50%; }
+      }
+    }
+  }
+}

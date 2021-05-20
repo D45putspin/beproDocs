@@ -1,0 +1,79 @@
+$levels: (light: 300, medium: 500, demi: 600, strong: 700, regular: normal);
+$font-sizes: (h1: 96px, h2: 60px, h3: 48px, h4: 34px, h5: 24px, h6: 20px, normal: 16px, small: 14px, xsmall: 12px, xxsmall: 10px);
+
+$headings: (
+        h1: (light, map-get($font-sizes, h1), -1.5px, 112px),
+        h2: (light, map-get($font-sizes, h2), -.5px, 72px),
+        h3: (medium, map-get($font-sizes, h3), normal, 56px),
+        h4: (medium, map-get($font-sizes, h4), normal, 36px),
+        h5: (medium, map-get($font-sizes, h5), .18px, 24px),
+        h6: (medium, map-get($font-sizes, h6), .15px, 24px),
+);
+
+$classes: (
+        subtitle: (medium, map-get($font-sizes, normal), .15px, 24px),
+        subtitle-small: (medium, map-get($font-sizes, small), .1px, 24px),
+        body: (medium, map-get($font-sizes, normal), .5px, 24px),
+        body-small: (medium, map-get($font-sizes, small), .25px, 20px),
+        body-finer: (medium, map-get($font-sizes, small), .11px, 17px),
+        button: (strong, map-get($font-sizes, small), 1.25px, 17px),
+        caption: (medium, map-get($font-sizes, xsmall), .4px, 16px),
+        overline: (medium, map-get($font-sizes, xxsmall), 1.5px, 16px),
+);
+
+@mixin typo($opts) {
+  &:not(.md-icon) {
+    font-family: houschka-rounded, sans-serif;
+  }
+  font-weight: map-get($levels, nth($opts, 1));
+  font-size: nth($opts, 2)!important;
+  letter-spacing: nth($opts, 3)!important;
+  line-height: nth($opts, 4)!important;
+}
+
+.font {
+  @each $alias, $size in $font-sizes {
+    &-#{$alias} {
+      font-size: $size!important;
+    }
+  }
+}
+
+@each $heading, $opts in $headings {
+  #{$heading} {
+    @include typo($opts)
+  }
+}
+
+@each $class, $opts in $classes {
+  .#{$class} {
+    @include typo($opts)
+  }
+}
+
+button, form, p, html, div, ul, ol, li, input, span, td, i {
+  @each $alias, $level in (light: 300, medium: 500, demi: 600, strong: 700) {
+    &.#{$alias} {
+      font-weight: $level !important;
+    }
+  }
+}
+@for $i from 1 through 6 {
+  h#{$i} {
+    @each $alias, $level in (light: 300, medium: 500, demi: 600, strong: 700) {
+      &.#{$alias} {
+        font-weight: $level !important;
+      }
+    }
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}

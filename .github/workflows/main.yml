@@ -3,6 +3,9 @@ name: Update documentation
 on:
   repository_dispatch:
     types: [update_docs]
+  push:
+    branches:
+      - master
 
 jobs:
   update_doc:

@@ -1,5 +1,6 @@
 <template>
-  <div id="app">
+  <div id="app" class="d-flex">
+    <side-bar :items="navList"></side-bar>
     <router-view/>
   </div>
 </template>
@@ -9,43 +10,26 @@ import {Component, Vue} from 'vue-property-decorator';
 import {docsFind} from '@helpers/docs-find';
 import {JsonDocKinds} from '@objects/faces/jsdocjson';
 import {Members} from '@objects/faces/members';
-import {LeftNavItems$, Readme$, RightNavItems$} from '@objects/comms';
+import {LeftNavItems$, ParsedScopes$, Readme$} from '@objects/comms';
+import SideBar from '@components/side-bar.vue';
+import {DocumentationService} from '@services/documentation';
 
-@Component({}) export default class extends Vue {
+@Component({
+             components: {SideBar}
+           }) export default class extends Vue {
   loading = false;
+  navList: string[] = [];
 
   async mounted(): Promise<void> {
     this.loading = true;
 
-    const documentation =
-        await fetch(`./static/docs.json`).then(r => r.json());
+    if (!DocumentationService.scopedMembers$.value)
+      await DocumentationService.loadDocumentation();
 
-    Readme$.next(await fetch(`./static/readme.md`).then(r => r.text()));
-
-    const classes = docsFind(JsonDocKinds.class, documentation.docs, {scope: 'global'});
-
-    const sidebar: string[] = [];
-    const members: Members = {};
-
-    for (const doc of classes) {
-      sidebar.push(doc.name);
-
-      for (const member of docsFind(null, documentation.docs, {memberof: doc.name})) {
-        if (!members[doc.name])
-          members[doc.name] = {};
-
-        if (!members[doc.name][member.kind])
-          members[doc.name][member.kind] = [];
-
-        members[doc.name][member.kind].push(member);
-      }
-    }
-
-    LeftNavItems$.next(sidebar);
-    RightNavItems$.next(members);
-
-    console.log(`leftnav`, sidebar);
-    console.log(`rightnav`, members);
+    this.navList
+        .splice(0, this.navList.length,
+                ...Array.from(new Set(Object.entries(DocumentationService.scopedMembers$.value!)
+                                            .map(([name,]) => name))));
 
     this.loading = false;
     return;
@@ -62,16 +46,4 @@ import {LeftNavItems$, Readme$, RightNavItems$} from '@objects/comms';
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>

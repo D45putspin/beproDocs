@@ -1,0 +1,35 @@
+.d {
+  @each $display in (flex, block, inline, inline-block, inline-flex) {
+    &-#{$display} { display: $display!important; }
+  }
+
+  &-flex {
+    .no-grow {
+      flex-grow: 0;
+    }
+  }
+}
+
+.justify-content {
+  @each $alias, $justify in (center: center, between: space-between, around: space-around, start: start, end: end) {
+    &-#{$alias} { justify-content: $justify!important; }
+  }
+}
+
+.align-items {
+  @each $alias, $align in (center: center, end: end, stretch: stretch, start: start) {
+    &-#{$alias} {align-items: $align}
+  }
+}
+
+.align-self {
+  @each $alias, $align in (center: center, end: end, stretch: stretch, start: start) {
+    &-#{$alias} {align-self: $align}
+  }
+}
+
+.overflow {
+  &-hidden { overflow: hidden; }
+  &-x-scroll { overflow-x: auto; overflow-y: hidden; scrollbar-width: thin;}
+  &-y-scroll { overflow-y: auto; overflow-x: hidden; scrollbar-width: thin;}
+}
