@@ -16,7 +16,3 @@ import SideBarItem from '@components/side-bar-item.vue';
   @Prop({default: () => []}) items!: string[];
 }
 </script>
-
-<style scoped>
-
-</style>

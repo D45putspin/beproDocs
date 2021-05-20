@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex justify-content-between">
-    <div class="mr-auto">
+  <div class="d-flex">
+    <div class="">
       <template v-for="[kind, docs] in Object.entries(members || {})">
         <ul :key="kind">
           <li><doc-item-kind :kind="kind" /></li>
@@ -12,13 +12,12 @@
         </ul>
       </template>
     </div>
-    <members-list :members="members"></members-list>
+    <members-list class="" :members="members"></members-list>
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
-import {ParsedScopes$} from '@objects/comms';
 import MembersList from '@components/members-list.vue';
 import {DocumentationService} from '@services/documentation';
 import {JsonDoc} from '@objects/faces/jsdocjson';
@@ -47,6 +46,3 @@ import DocItem from '@components/doc-item.vue';
 }
 </script>
 
-<style scoped>
-
-</style>

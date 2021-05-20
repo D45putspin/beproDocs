@@ -10,9 +10,6 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
 // @ts-ignore
 import VueMarkdown from '@adapttive/vue-markdown';
-import {Subject} from 'rxjs';
-import {Readme$} from '@objects/comms';
-import {takeUntil} from 'rxjs/operators';
 
 @Component({
   components: {

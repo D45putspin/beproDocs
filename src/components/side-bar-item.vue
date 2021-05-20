@@ -13,6 +13,3 @@ import {RouteNames} from '@/router/route-names';
 }
 </script>
 
-<style scoped>
-
-</style>

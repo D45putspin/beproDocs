@@ -10,6 +10,4 @@ import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
 }
 </script>
 
-<style scoped>
 
-</style>

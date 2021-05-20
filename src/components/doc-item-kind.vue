@@ -11,6 +11,3 @@ import {JsonDocKinds} from '@objects/faces/jsdocjson';
 }
 </script>
 
-<style scoped>
-
-</style>

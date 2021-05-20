@@ -23,6 +23,4 @@ import MemberListKind from '@components/member-list-kind.vue';
 }
 </script>
 
-<style scoped>
 
-</style>

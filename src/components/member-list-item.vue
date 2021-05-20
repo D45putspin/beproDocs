@@ -11,6 +11,6 @@ import {JsonDoc} from '@objects/faces/jsdocjson';
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

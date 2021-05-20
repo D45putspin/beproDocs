@@ -1,16 +1,14 @@
 <template>
   <div id="app" class="d-flex">
-    <side-bar :items="navList"></side-bar>
-    <router-view/>
+    <side-bar class="" :items="navList"></side-bar>
+    <div class="">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
-import {docsFind} from '@helpers/docs-find';
-import {JsonDocKinds} from '@objects/faces/jsdocjson';
-import {Members} from '@objects/faces/members';
-import {LeftNavItems$, ParsedScopes$, Readme$} from '@objects/comms';
 import SideBar from '@components/side-bar.vue';
 import {DocumentationService} from '@services/documentation';
 
