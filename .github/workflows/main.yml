@@ -19,7 +19,7 @@ jobs:
       - name: Checkout bepro-js@master
         uses: actions/checkout@v2
         with:
-          repository: bepronetwork/bepro-js
+          repository: moshmage/bepro-js
           path: bepro-src
           ref: master
 
