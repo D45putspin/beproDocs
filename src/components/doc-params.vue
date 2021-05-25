@@ -69,11 +69,6 @@ import DocParam from '@components/doc-param.vue';
     }
 
     this.parsedParams.splice(0, this.parsedParams.length, ...this.docParams.map(parseParam));
-
-    this.useNameHeader = false;
-    this.useDefaultHeader = false;
-    this.useAttributesHeader = false;
-
     this.parsedParams.forEach(checkForOptions);
   }
 
