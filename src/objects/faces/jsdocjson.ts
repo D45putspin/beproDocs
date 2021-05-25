@@ -23,6 +23,21 @@ export interface JsonDocMeta {
   range?: [number, number];
 }
 
+export interface JsonDocParamType {
+  names: string[];
+}
+
+export interface JsonDocParam {
+  name?: string;
+  optional?: boolean;
+  nullable?: boolean;
+  variable?: boolean;
+  defaultvalue?: any;
+  description?: string;
+  type: JsonDocParamType[];
+  subparams?: JsonDocParam[];
+}
+
 export interface JsonDoc {
   comment: string;
   meta: JsonDocMeta;
@@ -34,6 +49,7 @@ export interface JsonDoc {
   ___id: string;
   ___s: boolean;
   description?: string;
-  returns?: any;
-  params?: any;
+  returns?: JsonDocParam[];
+  params?: JsonDocParam[];
+  properties?: JsonDocParam[];
 }
