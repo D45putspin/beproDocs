@@ -63,6 +63,9 @@ import DocParam from '@components/doc-param.vue';
 
       if (param.optional || param.nullable || param.variable)
         this.useAttributesHeader = true;
+
+      if (param.subparams)
+        param.subparams.forEach(checkForOptions)
     }
 
     this.parsedParams.splice(0, this.parsedParams.length, ...this.docParams.map(parseParam));
@@ -71,10 +74,7 @@ import DocParam from '@components/doc-param.vue';
     this.useDefaultHeader = false;
     this.useAttributesHeader = false;
 
-    this.parsedParams.forEach(param => {
-      checkForOptions(param);
-      param.subparams?.forEach(checkForOptions);
-    });
+    this.parsedParams.forEach(checkForOptions);
   }
 
   mounted() {
