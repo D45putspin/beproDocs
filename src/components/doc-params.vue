@@ -36,7 +36,7 @@ import DocParam from '@components/doc-param.vue';
   parseParams(): void {
     let parent: JsonDocParam | null = null;
 
-    const parseParam = (param: JsonDocParam): JsonDocParam => {
+    const parseParam = (param: JsonDocParam): JsonDocParam|undefined => {
       const copy = {...param};
 
       if (parent?.name && copy.name) {
@@ -48,6 +48,7 @@ import DocParam from '@components/doc-param.vue';
             parent.subparams = [];
 
           parent.subparams.push(copy);
+          return;
         }
       } else parent = copy;
 
@@ -68,7 +69,7 @@ import DocParam from '@components/doc-param.vue';
         param.subparams.forEach(checkForOptions)
     }
 
-    this.parsedParams.splice(0, this.parsedParams.length, ...this.docParams.map(parseParam));
+    this.parsedParams.splice(0, this.parsedParams.length, ...this.docParams.map(parseParam).filter(v => !!v) as JsonDocParam[]);
     this.parsedParams.forEach(checkForOptions);
   }
 
