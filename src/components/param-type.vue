@@ -1,7 +1,7 @@
 <template>
   <div class="d-contents">
-    <span v-if="isArrayType">Array</span>
-    <span v-if="isPromiseType">Promise</span>
+    <span v-if="isArrayType" class="caption">Array</span>
+    <span v-if="isPromiseType" class="caption">Promise</span>
     <span v-if="!hasArray && !hasPromise">
       {{name}}
     </span>
@@ -38,6 +38,13 @@ import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  .caption {
+    padding: .3rem;
+    background-color: lightgray;
+    //&::after {
+    //  content: ">";
+    //  margin-left: .5rem;
+    //}
+  }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="d-flex">
     <side-bar class="" :items="navList"></side-bar>
-    <div class="">
+    <div>
       <router-view />
     </div>
   </div>
@@ -42,6 +42,10 @@ import {DocumentationService} from '@services/documentation';
   -moz-osx-font-smoothing: grayscale;
   //text-align: left;
   color: #2c3e50;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .5px;
+  line-height: 24px;
 }
 
 </style>
