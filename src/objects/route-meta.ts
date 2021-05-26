@@ -1,5 +1,26 @@
 import {NavigationGuard, Route} from 'vue-router';
 
+/**
+ * Use this class to extend meta and find extensions on the current route,
+ * @see DocNameExists
+ * @example
+ * class HelloExtended extends RouteMeta<boolean> {
+ *   constructor(protected metaValue: MetaValue)
+ *   public metaKey: `helloExtended` = `helloExtended`;
+ * }
+ *
+ * const helloExtended = new HelloExtended(true);
+ * const route = {
+ *   name: 'hello-extended',
+ *   path: '/hello-extended',
+ *   meta: {
+ *     ...helloExtended.meta,
+ *   }
+ * }
+ *
+ * const metaWithHelloExtended = RouteMeta.metaWithKey(this.$route, helloExtended.metaKey)
+ * const valueOfHelloExtended = RouteMeta.metaWithKey<boolean>(this.$route, helloExtended.metaKey, true)
+ */
 export class RouteMeta<MetaValue = any> {
   constructor(protected metaValue: MetaValue) {}
 
