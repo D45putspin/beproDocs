@@ -40,7 +40,7 @@ import {docsFind} from '@helpers/docs-find';
 
     if (!docsFind(null, [...Object.values(this.membersOf)].flat(), {name: memberName}).length)
       this.$router.push({name: this.$route.name!, params: { ... this.$route.params?.name ? {name: this.$route.params?.name} : {} }});
-    else (this.$refs.membersList as Element).querySelector(`li#${memberName}`)!.scrollIntoView();
+    else (this.$refs.membersList as Element).querySelector(`li#${memberName}`)?.scrollIntoView();
   }
 
   @Watch(`$route.params.name`) watchMemberOfName(newValue: string, oldValue: string) {
