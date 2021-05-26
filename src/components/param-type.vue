@@ -23,7 +23,7 @@ import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
   hasPromise = false;
 
   mounted() {
-    console.log(`started as`, this.type);
+
     if (this.type.search(/^Array\.</) === 0)
       this.hasArray = true;
 
@@ -34,7 +34,6 @@ import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
       this.name = this.type.replace(/^(Promise|Array)\.</g, ``).replace(/>$/g,``);
     else this.name = this.type;
 
-    console.log(`name`, this.name);
   }
 }
 </script>
