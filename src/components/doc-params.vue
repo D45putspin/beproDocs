@@ -33,7 +33,7 @@ import DocParam from '@components/doc-param.vue';
   /**
    * Parse the params into subparams so we can have `opts.params.params.params.param...` you get the point.
    */
-  parseParams() {
+  parseParams(): void {
     let parent: JsonDocParam | null = null;
 
     const parseParam = (param: JsonDocParam): JsonDocParam => {
@@ -72,7 +72,7 @@ import DocParam from '@components/doc-param.vue';
     this.parsedParams.forEach(checkForOptions);
   }
 
-  mounted() {
+  mounted(): void {
     this.parseParams();
   }
 

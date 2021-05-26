@@ -1,5 +1,5 @@
 .d {
-  @each $display in (flex, block, inline, inline-block, inline-flex) {
+  @each $display in (flex, block, inline, inline-block, inline-flex, contents) {
     &-#{$display} { display: $display!important; }
   }
 

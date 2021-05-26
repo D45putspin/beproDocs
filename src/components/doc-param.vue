@@ -1,17 +1,24 @@
 <template>
-  <tr>
-    <td v-if="hasName">{{param.name}}</td>
-    <td>{{JSON.stringify(param.type)}}</td>
-    <td v-if="hasAttributes">
-      <span v-if="param.optional">&lt;optional&gt;</span>
-      <span v-if="param.nullable">&lt;nullable&gt;</span>
-      <span v-if="param.variable">&lt;variable&gt;</span>
-    </td>
-    <td v-if="hasDefaultValue">
-      {{param.defaultvalue}}
-    </td>
-    <td>{{param.description}}</td>
-  </tr>
+  <div class="d-contents">
+    <tr>
+      <td v-if="hasName">{{param.name}}</td>
+      <td>{{JSON.stringify(param.type)}}</td>
+      <td v-if="hasAttributes">
+        <span v-if="param.optional">&lt;optional&gt;</span>
+        <span v-if="param.nullable">&lt;nullable&gt;</span>
+        <span v-if="param.variable">&lt;variable&gt;</span>
+      </td>
+      <td v-if="hasDefaultValue">
+        {{param.defaultvalue}}
+      </td>
+      <td>{{param.description}}</td>
+    </tr>
+
+    <template v-if="param.subparams">
+      <doc-param  v-for="(subparam, i) of param.subparams" :param="subparam" :key="i" />
+    </template>
+
+  </div>
 </template>
 
 <script lang="ts">
