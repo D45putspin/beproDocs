@@ -42,7 +42,7 @@ export class Documentation {
     return true;
   }
 
-  getNamedMember(name: string): {[p: string]: JsonDoc[]}|null {
+  getNamedMemberOf(name: string): {[p: string]: JsonDoc[]}|null {
     return this.scopedMembers$.value && this.scopedMembers$.value[name] || null
   }
 }

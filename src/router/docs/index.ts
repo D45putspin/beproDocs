@@ -4,7 +4,7 @@ import {DocsLayout} from '@/router/components';
 import {RouteNames} from '@/router/route-names';
 
 export const DocsRoute: RouteConfig = {
-  path: `/docs/:name/`,
+  path: `/docs/:name/:member?`,
   component: DocsLayout,
   name: RouteNames.Documentation,
   meta: {

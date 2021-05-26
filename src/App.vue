@@ -40,7 +40,7 @@ import {DocumentationService} from '@services/documentation';
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  //text-align: left;
+  text-align: left;
   color: #2c3e50;
   font-size: 16px;
   font-weight: 500;

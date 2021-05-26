@@ -18,7 +18,7 @@ export default class DocNameExists extends RouteMeta<boolean> {
       if (!to.params.name)
         return next({name: RouteNames.Unknown})
 
-      if (!DocumentationService.getNamedMember(to.params.name))
+      if (!DocumentationService.getNamedMemberOf(to.params.name))
         return next({name: RouteNames.Unknown})
 
       next();
