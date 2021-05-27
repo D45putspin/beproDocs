@@ -44,19 +44,21 @@ import {DocumentationService} from '@services/documentation';
       const options: Partial<JsonDoc> = {};
       let type: JsonDocKinds|null = JsonDocKinds.typedef;
 
-      if (!name && [`string`, `number`, `boolean`, `Object`].every(t=> t !== memberof)) {
-        type = JsonDocKinds.class;
-        options.name = memberof;
-        options.scope = `global`;
-      } else {
-        options.memberof = memberof;
-        options.name = name;
-      }
+      if (![`string`, `number`, `boolean`, `Object`].includes(memberof)) {
+        if (!name) {
+          type = JsonDocKinds.class;
+          options.name = memberof;
+          options.scope = `global`;
+        } else {
+          options.memberof = memberof;
+          options.name = name;
+        }
 
-      const exists = docsFind(type, DocumentationService.raw$.value, options);
-      if (!exists.length)
-        this.name = name;
-      else this.hasLink = [memberof, name];
+        const exists = docsFind(type, DocumentationService.raw$.value, options);
+        if (!exists.length)
+          this.name = name;
+        else this.hasLink = [memberof, name];
+      }
     }
   }
 }
