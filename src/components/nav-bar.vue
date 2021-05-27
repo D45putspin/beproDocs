@@ -31,7 +31,9 @@ import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
 
 a {
   color: white;
-
+  &:visited {
+    color: inherit;
+  }
   &:hover {
     text-decoration: underline;
   }
