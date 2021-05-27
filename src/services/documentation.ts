@@ -45,8 +45,6 @@ export class Documentation {
     this.scopedMembers$.next(members);
     this.raw$.next(documentation.docs);
 
-    console.log(classes)
-
     return true;
   }
 
