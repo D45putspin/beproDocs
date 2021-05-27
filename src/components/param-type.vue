@@ -3,7 +3,7 @@
     <span v-if="isArrayType" class="caption">Array</span>
     <span v-if="isPromiseType" class="caption">Promise</span>
     <span v-if="!hasArray && !hasPromise">
-      <router-link v-if="hasLink.length" :to="{name: `documentation`, params: {name: hasLink[0], member: hasLink[1]}}">{{name}}</router-link>
+      <router-link v-if="hasLink.length" :to="{name: `documentation`, params: {name: hasLink[0], member: hasLink[1] || undefined}}">{{name}}</router-link>
       <span v-else>{{name}}</span>
     </span>
     <param-type v-if="hasArray || hasPromise" :type="name" :is-array-type="hasArray" :is-promise-type="hasPromise"/>
@@ -15,6 +15,7 @@ import {Component, Prop, Vue} from 'vue-property-decorator';
 import {docsFind} from '@helpers/docs-find';
 import {JsonDoc, JsonDocKinds} from '@objects/faces/jsdocjson';
 import {DocumentationService} from '@services/documentation';
+import {parseType} from '@helpers/parse-type';
 
 @Component export default class ParamType extends Vue {
   @Prop({default: ``}) type!: string;
@@ -40,25 +41,16 @@ import {DocumentationService} from '@services/documentation';
     else this.name = this.type;
 
     if ((!this.hasArray && !this.hasPromise)) {
-      const [memberof, name] = this.name.split(`~`);
-      const options: Partial<JsonDoc> = {};
-      let type: JsonDocKinds|null = JsonDocKinds.typedef;
+      const options = parseType(this.name)
 
-      if (![`string`, `number`, `boolean`, `Object`].includes(memberof)) {
-        if (!name) {
-          type = JsonDocKinds.class;
-          options.name = memberof;
-          options.scope = `global`;
-        } else {
-          options.memberof = memberof;
-          options.name = name;
-        }
+      if (!options.kind)
+        return;
 
-        const exists = docsFind(type, DocumentationService.raw$.value, options);
-        if (!exists.length)
-          this.name = name;
-        else this.hasLink = [memberof, name];
-      }
+      const exists = docsFind(null, DocumentationService.raw$.value, options);
+
+      if (exists.length)
+        this.hasLink = [(options.memberof || options.name)!, options.memberof && options.name || ``];
+
     }
   }
 }
