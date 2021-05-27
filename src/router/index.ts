@@ -12,7 +12,7 @@ const routes: Array<RouteConfig> = [
 
   {
     path: '/',
-    name: 'Home',
+    name: RouteNames.Home,
     component: Home
   },
   DocsRoute,

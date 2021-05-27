@@ -66,3 +66,12 @@ $positions: absolute, relative, sticky !default;
     }
   }
 }
+
+.w {
+  $i: 100;
+  $dec: 5;
+  @while $i > $dec {
+    &-#{$i} { width: percentage($i); }
+    $i: $i - $dec;
+  }
+}

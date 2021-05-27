@@ -1,6 +1,7 @@
 <template>
   <div class="d-flex">
     <div class="" ref="membersList">
+      <doc-item :item="owner" />
       <template v-for="[kind, docs] in Object.entries(membersOf || {})">
         <ul :key="kind">
           <li><doc-item-kind :kind="kind" /></li>
@@ -17,21 +18,25 @@
 </template>
 
 <script lang="ts">
-import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
+import {Component, Vue, Watch} from 'vue-property-decorator';
 import MembersList from '@components/members-list.vue';
 import {DocumentationService} from '@services/documentation';
-import {JsonDoc} from '@objects/faces/jsdocjson';
+import {JsonDoc, JsonDocKinds} from '@objects/faces/jsdocjson';
 import DocItemKind from '@components/doc-item-kind.vue';
 import DocItem from '@components/doc-item.vue';
 import {docsFind} from '@helpers/docs-find';
+
 @Component({
              components: {DocItem, DocItemKind, MembersList}
            }) export default class DocsLayout extends Vue {
 
   membersOf: {[p: string]: JsonDoc[]} = {} as unknown as any;
+  owner: JsonDoc|null = null;
 
   setMemberOfObjectTo(name: string) {
     this.membersOf = DocumentationService.getNamedMemberOf(name)!;
+    if (this.membersOf)
+      this.owner = docsFind(JsonDocKinds.class, DocumentationService.raw$.value, {name})[0];
   }
 
   navigateTo(memberName?: string) {

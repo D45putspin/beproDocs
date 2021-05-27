@@ -5,8 +5,13 @@ import {JsonDoc, JsonDocKinds} from '@objects/faces/jsdocjson';
 
 export class Documentation {
   scopedMembers$ = new BehaviorSubject<Members|null>(null);
+  raw$ = new BehaviorSubject<JsonDoc[]>([]);
 
   async loadDocumentation(): Promise<boolean> {
+
+    if (this.scopedMembers$.value)
+      return true;
+
     const documentation =
       await fetch(`./static/docs.json`)
         .then(r => r.json())
@@ -38,6 +43,7 @@ export class Documentation {
     }
 
     this.scopedMembers$.next(members);
+    this.raw$.next(documentation.docs);
 
     return true;
   }

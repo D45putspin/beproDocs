@@ -1,23 +1,36 @@
 form { margin-block-end: 0; }
 button, form, p, html, div, ul, ol, li, input, span {
-  font-family:  houschka-rounded, sans-serif;
   text-transform: initial;
 }
 
-@for $i from 1 through 6 {
-  h#{$i} { font-family:  houschka-rounded, sans-serif }
+a {
+  color: #2c3e50;
+  text-decoration: none;
+
+  &:visited {
+    color: inherit;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
+
 ul, li { list-style: none; }
 html, body {
-  color: rgba(0, 0, 0, 0.87);
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: left;
+  color: #2c3e50;
+  font-size: 16px;
   font-weight: 500;
-  font-family: houschka-rounded, sans-serif;
-  letter-spacing: 0.5px;
+  letter-spacing: .5px;
   line-height: 24px;
+  margin: 0;
 }
 
 strong, b {
-  font-family: houschka-rounded, sans-serif;
   font-weight: 700!important;
   &.medium {
     font-weight: 500!important;
