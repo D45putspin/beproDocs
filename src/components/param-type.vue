@@ -3,14 +3,18 @@
     <span v-if="isArrayType" class="caption">Array</span>
     <span v-if="isPromiseType" class="caption">Promise</span>
     <span v-if="!hasArray && !hasPromise">
-      {{name}}
+      <router-link v-if="hasLink.length" :to="{name: `documentation`, params: {name: hasLink[0], member: hasLink[1]}}">{{name}}</router-link>
+      <span v-else>{{name}}</span>
     </span>
     <param-type v-if="hasArray || hasPromise" :type="name" :is-array-type="hasArray" :is-promise-type="hasPromise"/>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
+import {Component, Prop, Vue} from 'vue-property-decorator';
+import {docsFind} from '@helpers/docs-find';
+import {JsonDoc, JsonDocKinds} from '@objects/faces/jsdocjson';
+import {DocumentationService} from '@services/documentation';
 
 @Component export default class ParamType extends Vue {
   @Prop({default: ``}) type!: string;
@@ -19,10 +23,11 @@ import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
 
   name = ``;
 
+  hasLink: string[] = [];
   hasArray = false;
   hasPromise = false;
 
-  mounted() {
+  mounted(): void {
 
     if (this.type.search(/^Array\.</) === 0)
       this.hasArray = true;
@@ -34,6 +39,25 @@ import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
       this.name = this.type.replace(/^(Promise|Array)\.</g, ``).replace(/>$/g,``);
     else this.name = this.type;
 
+    if ((!this.hasArray && !this.hasPromise)) {
+      const [memberof, name] = this.name.split(`~`);
+      const options: Partial<JsonDoc> = {};
+      let type: JsonDocKinds|null = JsonDocKinds.typedef;
+
+      if (!name && [`string`, `number`, `boolean`, `Object`].every(t=> t !== memberof)) {
+        type = JsonDocKinds.class;
+        options.name = memberof;
+        options.scope = `global`;
+      } else {
+        options.memberof = memberof;
+        options.name = name;
+      }
+
+      const exists = docsFind(type, DocumentationService.raw$.value, options);
+      if (!exists.length)
+        this.name = name;
+      else this.hasLink = [memberof, name];
+    }
   }
 }
 </script>
