@@ -1,17 +1,44 @@
- .backgroundBepro{background-color: #0d0f19;color: white  !important;padding-left:3rem}//section where docs are loaded
- .backgroundSideBar{background-color:#151720;color:white !important;padding: 3rem;margin-bottom:0px !important}//sidebar section
-.caption{background-color: #ff8b10 !important;border-radius: 10%;margin-right:1rem}//modifie captions 
+
+:root{
+--big-wrapper-bg:#0d0f19;
+--big-wrapper-color:white;
+--sidebar-wrapper-bg:#151720;
+--sidebar-wrapper-color:white;
+--caption-bg:#ff8b10;
+--table-bg:#151720;
+--table-header-bg:#303fe1;
+--table-row-border-color:rgba(255,255,255,0.1);
+
+}
+[data-theme="light"] {
+    --big-wrapper-bg:#ececec;
+    --big-wrapper-color:#111;
+    --sidebar-wrapper-bg:#DEE4E7;
+    --sidebar-wrapper-color:black;
+    --caption-bg:LightGray;
+    --table-bg:#DEE4E7;
+    --table-header-bg:#303fe1;
+    --table-row-border-color:rgba(255,255,255,0.1);
+  }
+body{color:var(--big-wrapper-color)!important}
+.backgroundBepro{background-color: var(--big-wrapper-bg);color: var(--big-wrapper-color)  !important;padding-left:3rem}//section where docs are loaded
+ .backgroundSideBar{background-color:var(--sidebar-wrapper-bg);color:var(--sidebar-wrapper-color) !important;padding: 3rem;margin-bottom:0px !important}//sidebar section
+.caption{background-color: var(--caption-bg) !important;border-radius: 10%;margin-right:1rem}//modifie captions 
 
 //table
-table{background-color:#151720;border-radius: 10px;width:80%;}
-th{padding-top:1rem;padding-bottom:1rem;padding-left:1rem;background:#303fe1;  text-transform: uppercase !important;}
+table{background-color:var(--table-bg);border-radius: 10px;width:80%;}
+th{padding-top:1rem;padding-bottom:1rem;padding-left:1rem;background:var(--table-header-bg); color:white; text-transform: uppercase !important;}
 td{padding-right: 2rem;padding-left:1rem;padding-top:1rem;padding-bottom:1rem;vertical-align:middle!important;overflow: auto}
-tr{padding-bottom: 1rem !important;border-top:1px solid rgba(255,255,255,0.1)!important}
-
-
+tr{padding-bottom: 1rem !important;border-top:1px solid var(--table-row-border-color) !important}
+.btn-success{background-color:#ff8b10 !important;border:0px !important}
+.SideBarText{
+    color:var(--sidebar-wrapper-color) !important; 
+    text-decoration: none;
+    margin-top:1rem !important;
+  }
 //colors
-.blue{color:#303fe1}
-.kindDoc{color:white}//Documentation section |-> kind
-.SideBarText:hover{color:blue}
+
+.kindDoc{color:var(--big-wrapper-color)}//Documentation section |-> kind
+
 
 
