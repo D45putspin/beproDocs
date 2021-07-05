@@ -1,28 +1,31 @@
 <template>
-  <table>
-    <thead>
-    <tr>
-      <th v-if="useNameHeader">Name</th>
-      <th>Type</th>
-      <th v-if="useAttributesHeader">Attributes</th>
-      <th v-if="useDefaultHeader">Default</th>
-      <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <doc-param v-for="(param, i) of parsedParams" :param="param" :key="i" />
-    </tbody>
-  </table>
+  <div class="tBone">
+    <table class="ml-4 mt-3">
+      <thead>
+        <tr>
+          <th v-if="useNameHeader">Name</th>
+          <th>Type</th>
+          <th v-if="useAttributesHeader">Attributes</th>
+          <th v-if="useDefaultHeader">Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <doc-param v-for="(param, i) of parsedParams" :param="param" :key="i" />
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script lang="ts">
-import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
-import {JsonDocParam} from '@objects/faces/jsdocjson';
-import DocParam from '@components/doc-param.vue';
+import { Component, Emit, Prop, Vue, Watch } from "vue-property-decorator";
+import { JsonDocParam } from "@objects/faces/jsdocjson";
+import DocParam from "@components/doc-param.vue";
 @Component({
-             components: {DocParam}
-           }) export default class DocParams extends Vue {
-  @Prop({default: []}) docParams!: JsonDocParam[];
+  components: { DocParam },
+})
+export default class DocParams extends Vue {
+  @Prop({ default: [] }) docParams!: JsonDocParam[];
 
   parsedParams: JsonDocParam[] = [];
 
@@ -36,16 +39,14 @@ import DocParam from '@components/doc-param.vue';
   parseParams(): void {
     let parent: JsonDocParam | null = null;
 
-    const parseParam = (param: JsonDocParam): JsonDocParam|undefined => {
-      const copy = {...param};
+    const parseParam = (param: JsonDocParam): JsonDocParam | undefined => {
+      const copy = { ...param };
 
       if (parent?.name && copy.name) {
-        if (!copy.name.includes(`${parent.name}.`))
-          parent = copy;
+        if (!copy.name.includes(`${parent.name}.`)) parent = copy;
         else {
           copy.name = copy.name.replace(`${parent.name}.`, ``);
-          if (!parent.subparams)
-            parent.subparams = [];
+          if (!parent.subparams) parent.subparams = [];
 
           parent.subparams.push(copy);
           return;
@@ -53,33 +54,32 @@ import DocParam from '@components/doc-param.vue';
       } else parent = copy;
 
       return copy;
-    }
+    };
 
     const checkForOptions = (param: JsonDocParam) => {
-      if (param.name)
-        this.useNameHeader = true;
+      if (param.name) this.useNameHeader = true;
 
-      if (param.defaultvalue !== undefined)
-        this.useDefaultHeader = true;
+      if (param.defaultvalue !== undefined) this.useDefaultHeader = true;
 
       if (param.optional || param.nullable || param.variable)
         this.useAttributesHeader = true;
 
-      if (param.subparams)
-        param.subparams.forEach(checkForOptions)
-    }
+      if (param.subparams) param.subparams.forEach(checkForOptions);
+    };
 
-    this.parsedParams.splice(0, this.parsedParams.length, ...this.docParams.map(parseParam).filter(v => !!v) as JsonDocParam[]);
+    this.parsedParams.splice(
+      0,
+      this.parsedParams.length,
+      ...(this.docParams.map(parseParam).filter((v) => !!v) as JsonDocParam[])
+    );
     this.parsedParams.forEach(checkForOptions);
   }
 
   mounted(): void {
     this.parseParams();
   }
-
 }
 </script>
 
 <style scoped>
-
 </style>

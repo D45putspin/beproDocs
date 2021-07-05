@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "target": "esnext",
     "module": "esnext",
     "strict": true,
@@ -16,12 +17,24 @@
       "webpack-env"
     ],
     "paths": {
-      "@objects/*": ["src/objects/*"],
-      "@services/*": ["src/services/*"],
-      "@helpers/*": ["src/helpers/*"],
-      "@components/*": ["src/components/*"],
-      "@assets/*": ["src/assets/*"],
-      "@/*": ["src/*"]
+      "@objects/*": [
+        "src/objects/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@helpers/*": [
+        "src/helpers/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@/*": [
+        "src/*"
+      ]
     },
     "lib": [
       "esnext",
