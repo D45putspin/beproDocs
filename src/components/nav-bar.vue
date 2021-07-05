@@ -5,7 +5,7 @@
       <span class="ml-2 align-self-start subtitle-small">//docs</span>
     </router-link>
     <div>
-      <button class="btn-success mr-4" id="theme-switcher">Switch Mode</button>
+      <button class="btn-warning mr-4" id="theme-switcher">Switch Mode</button>
     </div>
     <div>
       <a href="https://github.com/bepronetwork/bepro-js">github/bepro-js</a>
@@ -26,6 +26,7 @@ export default class NavBar extends Vue {}
     var themeSwitcher = document.getElementById("theme-switcher");
 
     // When our button gets clicked
+    if(themeSwitcher){
     themeSwitcher.onclick = function() {
       // Get the current selected theme, on the first run
       // it should be `light`
@@ -36,7 +37,7 @@ export default class NavBar extends Vue {}
 
       // Set our currenet theme to the new one
       document.documentElement.setAttribute("data-theme", switchToTheme);
-    }
+    }}
   });
 
 </script>
