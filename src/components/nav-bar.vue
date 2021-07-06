@@ -1,11 +1,15 @@
 <template>
-  <div class="d-flex navbar p-3 align-items-center">
-    <router-link class="mr-auto d-flex" :to="{ name: `home` }">
+  <div class="navbar p-3 w-100 align-items-center">
+    <router-link
+      class="mr-auto d-flex d-none d-lg-block"
+      :to="{ name: `home` }"
+    >
       <img src="@/assets/logo.png" class="logo" />
       <span class="ml-2 align-self-start subtitle-small">//docs</span>
     </router-link>
     <div>
       <button class="btn-warning mr-4" id="theme-switcher">Switch Mode</button>
+      <button class="btn-warning mr-4" id="menu-btn" onclick="">Menu</button>
     </div>
     <div>
       <a href="https://github.com/bepronetwork/bepro-js">github/bepro-js</a>
@@ -18,28 +22,28 @@ import { Component, Emit, Prop, Vue, Watch } from "vue-property-decorator";
 
 @Component
 export default class NavBar extends Vue {}
- // Wait for document to load
-  document.addEventListener("DOMContentLoaded", function(event) {
-    document.documentElement.setAttribute("data-theme", "light");
+// Wait for document to load
+document.addEventListener("DOMContentLoaded", function (event) {
+  document.documentElement.setAttribute("data-theme", "light");
 
-    // Get our button switcher
-    var themeSwitcher = document.getElementById("theme-switcher");
+  // Get our button switcher
+  var themeSwitcher = document.getElementById("theme-switcher");
 
-    // When our button gets clicked
-    if(themeSwitcher){
-    themeSwitcher.onclick = function() {
+  // When our button gets clicked
+  if (themeSwitcher) {
+    themeSwitcher.onclick = function () {
       // Get the current selected theme, on the first run
       // it should be `light`
       var currentTheme = document.documentElement.getAttribute("data-theme");
 
       // Switch between `dark` and `light`
-      var switchToTheme = currentTheme === "dark" ? "light" : "dark"
+      var switchToTheme = currentTheme === "dark" ? "light" : "dark";
 
       // Set our currenet theme to the new one
       document.documentElement.setAttribute("data-theme", switchToTheme);
-    }}
-  });
-
+    };
+  }
+});
 </script>
 
 <style scoped lang="scss">

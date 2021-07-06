@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex">
+  <div class="d-sm-flex">
     <div class="" ref="membersList">
       <doc-item class="pt-1" v-if="owner" :item="owner" />
       <template v-for="[kind, docs] in Object.entries(membersOf || {})">

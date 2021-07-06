@@ -30,7 +30,10 @@ import WatchDocNameParam from "@components/mixins/watch-doc-name-param";
 @Component({
   components: { SideBarItem, MembersList },
 })
-export default class SideBar extends Mixins(MetaExtended, WatchDocNameParam) {
+export default class SideBarMenu extends Mixins(
+  MetaExtended,
+  WatchDocNameParam
+) {
   @Prop({ default: () => [] }) items!: string[];
 }
 </script>

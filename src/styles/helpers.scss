@@ -1,20 +1,13 @@
 .d {
-  @each $display in (flex, block, inline, inline-block, inline-flex, contents) {
-    &-#{$display} { display: $display!important; }
+ 
+  @each $display in ( contents) {
+    &-#{$display} { display: contents; }
   }
-
-  &-flex {
-    .no-grow {
-      flex-grow: 0;
-    }
-  }
+  
 }
 
-.justify-content {
-  @each $alias, $justify in (center: center, between: space-between, around: space-around, start: start, end: end) {
-    &-#{$alias} { justify-content: $justify!important; }
-  }
-}
+
+
 
 .align-items {
   @each $alias, $align in (center: center, end: end, stretch: stretch, start: start) {

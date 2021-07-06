@@ -2,13 +2,26 @@
   <div id="app">
     <nav-bar />
     <div class="d-flex wrapper">
+      <side-bar-menu
+        id="menu-mobile"
+        class="w-100 sticky-top backgroundSideBar d-lg-none"
+        style="
+          display: none;
+          background-color: red;
+          overflow: scroll;
+          height: 100vh;
+          width: 100vw;
+          position: fixed;
+        "
+        :items="navList"
+      ></side-bar-menu>
       <side-bar
-        class="w-25 sticky-top backgroundSideBar"
+        class="w-25 sticky-top backgroundSideBar d-none d-lg-block"
         aria-orientation="vertical"
         style="overflow: scroll; height: 100vh"
         :items="navList"
       ></side-bar>
-      <div class="w-75 backgroundBepro">
+      <div class="backgroundBepro">
         <router-view />
       </div>
     </div>
@@ -18,11 +31,12 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import SideBar from "@components/side-bar.vue";
+import SideBarMenu from "@components/side-bar-menu.vue";
 import { DocumentationService } from "@services/documentation";
 import NavBar from "@components/nav-bar.vue";
 
 @Component({
-  components: { NavBar, SideBar },
+  components: { NavBar, SideBar, SideBarMenu },
 })
 export default class extends Vue {
   loading = true;

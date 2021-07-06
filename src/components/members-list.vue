@@ -6,7 +6,11 @@
       </li>
       <ul>
         <li v-for="doc of docs" :key="doc.name">
-          <member-list-item class="SideBarText" :item="doc"></member-list-item>
+          <member-list-item
+            v-on:click="$emit('closeMenu')"
+            class="SideBarText"
+            :item="doc"
+          ></member-list-item>
         </li>
       </ul>
     </ul>

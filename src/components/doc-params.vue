@@ -1,13 +1,13 @@
 <template>
-  <div class="tBone">
-    <table class="ml-4 mt-3">
+  <div class="d-flex justify-content-start">
+    <table class="mt-3 overflow-scroll">
       <thead>
         <tr>
-          <th v-if="useNameHeader">Name</th>
-          <th>Type</th>
-          <th v-if="useAttributesHeader">Attributes</th>
-          <th v-if="useDefaultHeader">Default</th>
-          <th>Description</th>
+          <th scope="col" v-if="useNameHeader">Name</th>
+          <th scope="col">Type</th>
+          <th scope="col" v-if="useAttributesHeader">Attributes</th>
+          <th scope="col" v-if="useDefaultHeader">Default</th>
+          <th scope="col">Description</th>
         </tr>
       </thead>
       <tbody>

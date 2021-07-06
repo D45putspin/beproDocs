@@ -9,8 +9,29 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/default.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
 
-<script type="text/javascript">
- 
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function (event) {
+      var menu = document.getElementById("menu-btn");
+      var itemMenu = document.getElementById("itemMenu");
+      console.log(itemMenu);
+      if (menu) {
+        menu.onclick = function () {
+          console.log("click");
+          var menuMb = document.getElementById("menu-mobile");
+
+          if (menuMb) menuMb.style.display = "block";
+
+        };
+      }
+
+      itemMenu.onclick = function () {
+        console.log("click Item");
+        menuMb.style.display = "none";
+      }
+
+    });
+
+
   </script>
   <title>
     <%= htmlWebpackPlugin.options.title %>

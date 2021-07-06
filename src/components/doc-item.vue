@@ -1,9 +1,11 @@
 <template>
   <div class="pb-3 pt-2">
-    <div class="divider"></div>
-    <div class="pb-1 h4">
-      <a class="blue">#</a> <b> {{ item.name }}</b>
-    </div>
+    <ul>
+      <div class="divider"></div>
+      <div class="pb-1 h4">
+        <a class="blue">#</a> <b> {{ item.name }}</b>
+      </div>
+    </ul>
     <div class="pb-4 description"><span v-html="description"></span></div>
     <doc-params v-if="hasParams" :doc-params="item.params" />
     <doc-params v-if="hasProperties" :doc-params="item.properties" />
