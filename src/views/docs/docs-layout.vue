@@ -64,7 +64,6 @@ export default class DocsLayout extends Mixins(WatchDocNameParam) {
 
   mounted() {
     this.setMemberOfObjectTo(this.$route.params.name);
-
     if (this.$route.params?.member) this.navigateTo(this.$route.params.member);
   }
 }

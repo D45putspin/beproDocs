@@ -9,7 +9,7 @@
     </router-link>
     <div>
       <button class="btn-warning mr-4" id="theme-switcher">Switch Mode</button>
-      <button class="btn-warning mr-4" id="menu-btn">Menu</button>
+      
     </div>
     <div>
       <a href="https://github.com/bepronetwork/bepro-js">github/bepro-js</a>

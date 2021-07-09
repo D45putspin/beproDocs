@@ -28,9 +28,11 @@ export default class MembersList extends Vue {
   onUrlChange(newVal: Route) {
     let bgB = document.getElementById("backgroundBepro");
     let bgS = document.getElementById("backgroundSideBar");
-    if (bgB && bgS) {
+    let menuBtn=document.getElementById("menu-btn")
+    if (bgB && bgS && menuBtn) {
       bgB.className = "backgroundBepro";
       bgS.style.display = "none";
+      menuBtn.style.display="block"
     }
   }
   @Prop({ default: () => ({}) }) members!: { [p: string]: JsonDoc[] };

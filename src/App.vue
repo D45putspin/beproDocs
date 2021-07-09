@@ -21,7 +21,7 @@
         class="w-100 pt-0 backgroundSideBar"
         :items="navList"
       ></side-bar>
-
+<button class="mr-4 sticky-top btn-menu " id="menu-btn"><img class="img" src="./assets/icn.png" width="20" height="20" ></button>
       <div class="backgroundBepro" id="backgroundBepro">
         <router-view />
       </div>
