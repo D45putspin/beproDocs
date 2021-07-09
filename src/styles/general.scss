@@ -1,4 +1,4 @@
-
+//light and dark mode
 :root{
 --defa-active:#303fe1;
 --big-wrapper-bg:#0d0f19;
@@ -10,7 +10,6 @@
 --table-header-bg:#303fe1;
 --table-row-border-color:rgba(255,255,255,0.1);
 --filter:invert(100%)
-
 }
 [data-theme="light"] {
     --defa-active:#303fe1;
@@ -25,6 +24,9 @@
     --filter:invert(0%)
   }
 
+
+
+  //css when screen is <600
 @media only screen and (max-width: 600px) {
   body {
    word-wrap: break-word;
@@ -57,6 +59,8 @@
 }
 }
 
+//general styling
+
 body{background-color: var(--big-wrapper-bg)!important;color:var(--big-wrapper-color)!important;width: 100%;}
 .backgroundBepro{background-color: var(--big-wrapper-bg);color: var(--big-wrapper-color)  !important;width:75%;padding-left:3rem;}//section where docs are loaded
 .backgroundSideBar{background-color:var(--sidebar-wrapper-bg);color:var(--sidebar-wrapper-color) !important;padding: 3rem;margin-bottom:0px !important; overflow-x: hidden !important;}//sidebar section
@@ -79,30 +83,31 @@ tr:first-child th{
     text-decoration: none;
     margin-top:1rem !important;
   }
-  
+  .btn-menu{border:none;background-color: var(--big-wrapper-bg);}
 //colors
 .router-link-exact-active{color: var(--defa-active) !important;font-weight: bold;}
 .router-link-active{color: var(--defa-active) !important;}
-
 .kindDoc{color:var(--big-wrapper-color)}//Documentation section |-> kind
+.img{filter:var(--filter)}
+
+
+//scrolBar
+
 
 
 .backgroundSideBar::-webkit-scrollbar{
     width:3px;
     
 }
-/* Track */
+
 .backgroundSideBar::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey; 
 
   }
-   
-  /* Handle */
 .backgroundSideBar::-webkit-scrollbar-thumb {
     background: var(--defa-active)
   }
   
-  /* Handle on hover */
 .backgroundSideBar::-webkit-scrollbar-thumb:hover {
     background: var(big); 
   }
@@ -120,8 +125,8 @@ tr:first-child th{
     background: var(--defa-active)
   }
 
-.btn-menu{border:none;background-color: var(--big-wrapper-bg);}
 
-.img{filter:var(--filter)}
+
+
 
  

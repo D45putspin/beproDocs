@@ -5,7 +5,6 @@ import router from './router';
 import '@/styles/reset.scss';
 import '@/styles/helpers.scss';
 import '@/styles/typography.scss';
-import '@/styles/spacing.scss';
 import '@/styles/general.scss';
 const BootstrapVue = require('bootstrap-vue/dist/bootstrap-vue.esm');
 import 'bootstrap-vue/dist/bootstrap-vue.css';

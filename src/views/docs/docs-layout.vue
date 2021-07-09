@@ -31,8 +31,12 @@ import { JsonDoc } from "@objects/faces/jsdocjson";
 export default class DocsLayout extends Mixins(WatchDocNameParam) {
   owner: JsonDoc | null = null;
 
+scrollToParamsName() {
+  console.log("ehehheheheh")
+    return (this.$refs.membersList as Element).querySelector(`#${this.$route.params.name}`)?.scrollIntoView()
+  }
   navigateTo(memberName?: string) {
-    if (!memberName) return;
+    if (!memberName) return this.scrollToParamsName;
 
     if (
       !docsFind(null, [...Object.values(this.membersOf!)].flat(), {
