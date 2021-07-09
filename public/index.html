@@ -12,21 +12,18 @@
   <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function (event) {
       var menu = document.getElementById("menu-btn");
-      var itemMenu = document.getElementById("itemMenu");
-      console.log(itemMenu);
+
+
       if (menu) {
         menu.onclick = function () {
-          console.log("click");
-          var menuMb = document.getElementById("menu-mobile");
+          document.getElementById("backgroundSideBar").style.display = "block"
+          let bgB = document.getElementById("backgroundBepro")
+          let lastClass = bgB.className
+          let newClass = lastClass
+          bgB.className = newClass
 
-          if (menuMb) menuMb.style.display = "block";
 
         };
-      }
-
-      itemMenu.onclick = function () {
-        console.log("click Item");
-        menuMb.style.display = "none";
       }
 
     });
@@ -39,7 +36,7 @@
 </head>
 
 <body>
-
+  <script src="//cdn.jsdelivr.net/npm/ismobilejs@1.1.1/dist/isMobile.min.js"></script>
   <noscript>
     <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
         Please enable it to continue.</strong>

@@ -30,11 +30,24 @@
   }
   table {
     border-radius:0px !important;
-    max-width:75% !important;
+    max-width:100% !important;
   display: block;
-  overflow:auto;}
+  overflow:scroll;}
   .backgroundBepro{
-    width:100% !important
+    width:100% ;
+    z-index: -1;
+  
+
+  }
+  .backgroundSideBar{
+    position:fixed;
+  top:0px;
+  left:0px;
+  min-width:100vh;
+  height:100vh;
+  background-color:red;
+  overflow:scroll
+
   }
   ul {
     margin: 0 !important; /* To remove default bottom margin */ 
@@ -104,3 +117,8 @@ tr:first-child th{
   body::-webkit-scrollbar-thumb {
     background: var(--defa-active)
   }
+
+
+
+
+ 

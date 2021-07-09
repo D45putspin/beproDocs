@@ -1,27 +1,28 @@
 <template>
   <div id="app">
     <nav-bar />
-    <div class="d-flex wrapper">
-      <side-bar-menu
-        id="menu-mobile"
-        class="w-100 sticky-top backgroundSideBar d-lg-none"
-        style="
-          display: none;
-          background-color: red;
-          overflow: scroll;
-          height: 100vh;
-          width: 100vw;
-          position: fixed;
-        "
-        :items="navList"
-      ></side-bar-menu>
+    <div v-if="!isMob" class="d-flex wrapper">
       <side-bar
-        class="w-25 sticky-top backgroundSideBar d-none d-lg-block"
+        class="w-25 sticky-top backgroundSideBar"
         aria-orientation="vertical"
         style="overflow: scroll; height: 100vh"
         :items="navList"
       ></side-bar>
-      <div class="backgroundBepro">
+
+      <div class="backgroundBepro" id="backgroundBepro">
+        <router-view />
+      </div>
+    </div>
+    <!--  mobile v  -->
+    <div class="mobile" v-if="isMob">
+      <side-bar
+        id="backgroundSideBar"
+        v-if="isMob"
+        class="w-100 pt-0 backgroundSideBar"
+        :items="navList"
+      ></side-bar>
+
+      <div class="backgroundBepro" id="backgroundBepro">
         <router-view />
       </div>
     </div>
@@ -31,17 +32,18 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import SideBar from "@components/side-bar.vue";
-import SideBarMenu from "@components/side-bar-menu.vue";
 import { DocumentationService } from "@services/documentation";
 import NavBar from "@components/nav-bar.vue";
 
 @Component({
-  components: { NavBar, SideBar, SideBarMenu },
+  components: { NavBar, SideBar },
 })
 export default class extends Vue {
+  get isMob(): boolean {
+    return (window as any).isMobile.any;
+  }
   loading = true;
   navList: string[] = [];
-
   hljs = require("highlight.js");
 
   async mounted(): Promise<void> {

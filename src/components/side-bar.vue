@@ -1,16 +1,18 @@
 <template>
-  <ul>
-    <li class="mt-4" v-for="name of items" :key="name">
-      <side-bar-item
-        :route-name="$routeNames.Documentation"
-        :label="name"
-        :route-params="{ name }"
-      ></side-bar-item>
-      <template v-if="name === $route.params.name && membersOf">
-        <members-list class="SideBarText" :members="membersOf"></members-list>
-      </template>
-    </li>
-  </ul>
+  <div>
+    <ul v-if="!isMob">
+      <li class="mt-4" v-for="name of items" :key="name">
+        <side-bar-item
+          :route-name="$routeNames.Documentation"
+          :label="name"
+          :route-params="{ name }"
+        ></side-bar-item>
+        <template v-if="name === $route.params.name && membersOf">
+          <members-list class="SideBarText" :members="membersOf"></members-list>
+        </template>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts">
